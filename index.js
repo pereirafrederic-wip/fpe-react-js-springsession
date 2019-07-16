@@ -28,46 +28,38 @@ class App extends Component {
   persistMessage(event){
     event.preventDefault();
     console.log('persist')
-        const response = fetch("http://localhost:9001/persist-message", {
+        const response = fetch("http://localhost:9001/session/persist-message", {
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
             },
             method: 'POST',
             mode: 'no-cors',
-            body: {
-              msg : this.state.message
-            }
+            body: 
+              this.state.message
+            
     })
-
- let result = 
-    response.then(response => { return  response.json()})
-    console.log('result', result)
   }
 
     readMessages(){
     console.log('readMessages')
-          const response = fetch("http://localhost:9001/read-message", {
+          fetch("http://localhost:9001/session/read-message", {
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
             },
             method: 'GET',
             mode: 'no-cors'
-    })
-
- let result = 
-    response
-    .then(response=> {
-      return response.body}).then(response => { return  response.json()})
-
-
-      console.log('read result',result)
+    }).then(function(response) {
+      return response.json();
+    }).then(data => {
+      debugger     
+    });
   }
 
   deleteSession(){
     console.log('deleteSession')
-              const response = fetch("http://localhost:9001/destroy", {
+              const response = fetch("http://localhost:9001/session/destroy", {
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
@@ -76,12 +68,7 @@ class App extends Component {
             mode: 'no-cors'
     })
 
- let result = 
-    response
-    .then(response=> {
-      return response.body}).then(response => { return  response.json()})
-
-         console.log('destroy result',result)
+         console.log('destroy result',response)
   }
 
 
